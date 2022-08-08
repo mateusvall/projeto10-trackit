@@ -1,8 +1,9 @@
 import axios from "axios";
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import UserContext from "../../../contexts/UserContext"
 import CreationBox from "./CreationBox/CreationBox"
+import HabitBox from "./HabitBox/HabitBox";
 
 export default function HabitArea({creationMode, setCreationMode}){
 
@@ -10,28 +11,36 @@ export default function HabitArea({creationMode, setCreationMode}){
     const {token, setToken} = useContext(UserContext)
     const [loading, setLoading] = useState(false);
 
-    const config ={
-        headers:{
-            "Authorization":`Bearer ${token}`
-        }
-    }
+    useEffect(() => {
 
-    const request = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config);
-    request.then(response => console.log(response.data))
+        const config ={
+            headers:{
+                "Authorization":`Bearer ${token}`
+            }
+        }
+
+        const request = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config);
+        request.then(response => setHabList(response.data))
+
+    }, [])
+
+   
+
+    
 
     return(
         <HabitAreaContainer>
             <CreationBox creationMode={creationMode} setCreationMode={setCreationMode} loading={loading} setLoading={setLoading}/>
-            {habList.length ? <h1>Tem hábitos</h1> : <h1>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</h1>}
+            {habList.length ? habList.map(item => <HabitBox name={item.name} id={item.id} days={item.days}/>) : <h1>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</h1>}
         </HabitAreaContainer>
     )
 }
 
 const HabitAreaContainer = styled.div`
     width: 338px;
-    
+    min-height: 100vh;
+
     h1{
-        margin-top: 29px;
         font-family: 'Lexend Deca';
         font-style: normal;
         font-weight: 400;

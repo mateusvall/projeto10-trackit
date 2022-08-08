@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import logotext from "../../images/TrackHabit.png"
 import UserContext from "../../contexts/UserContext"
 import { useContext } from "react"
 
@@ -17,6 +16,7 @@ export default function TopBar(){
 
 const TopBarContainer = styled.div`
     position: fixed;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: space-between;

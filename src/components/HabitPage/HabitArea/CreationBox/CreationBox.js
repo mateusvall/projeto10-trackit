@@ -6,8 +6,6 @@ import SaveButton from "./SaveButton";
 export default function CreationBox({creationMode, setCreationMode, loading, setLoading}){
 
     const [habitName, setHabitName] = useState("");
-
-
     const [segunda, setSegunda] = useState(false);
     const [terca, setTerca] = useState(false);
     const [quarta, setQuarta] = useState(false);
@@ -20,7 +18,7 @@ export default function CreationBox({creationMode, setCreationMode, loading, set
 
     return(
         <CreationBoxContainer available={creationMode}>
-            <input type="text" placeholder="nome do hábito" onChange={e => setHabitName(e.target.value)}></input>
+            <input disabled={loading} type="text" placeholder="nome do hábito" value={habitName} onChange={e => setHabitName(e.target.value)}></input>
             <ButtonList
                 domingo={domingo}
                 setDomingo={setDomingo} 
@@ -43,13 +41,23 @@ export default function CreationBox({creationMode, setCreationMode, loading, set
                 loading={loading} 
                 setLoading={setLoading}
                 domingo={domingo}
+                setDomingo={setDomingo}
                 segunda={segunda}
+                setSegunda={setSegunda}
                 terca={terca}
+                setTerca={setTerca}
                 quarta={quarta}
+                setQuarta={setQuarta}
                 quinta={quinta}
+                setQuinta={setQuinta}
                 sexta={sexta}
+                setSexta={setSexta}
                 sabado={sabado}
+                setSabado={setSabado}
                 habitName={habitName}
+                setHabitName={setHabitName}
+                creationMode={creationMode}
+                setCreationMode={setCreationMode}
             />
 
         </CreationBoxContainer>
@@ -62,6 +70,7 @@ const CreationBoxContainer = styled.div`
     height: 180px;
     background: #FFFFFF;
     border-radius: 5px;
+    margin-bottom: 29px;
     position: relative;
     display: ${props => props.available ? "inherit" : "none"};
 

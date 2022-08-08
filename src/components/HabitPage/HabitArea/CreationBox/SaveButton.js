@@ -4,9 +4,10 @@ import styled from "styled-components"
 import UserContext from "../../../../contexts/UserContext"
 import { ThreeDots } from "react-loader-spinner"
 
-export default function SaveButton({loading, setLoading,segunda,terca,quarta,quinta,sexta,sabado,domingo,habitName}){
+export default function SaveButton({loading, setLoading,segunda,setSegunda,terca,setTerca,quarta,setQuarta,quinta,setQuinta,sexta,setSexta,sabado,setSabado,domingo,setDomingo,habitName,setHabitName, creationMode, setCreationMode}){
 
     const {token, setToken} = useContext(UserContext);
+    const {habList, setHabList} = useContext(UserContext);
 
     function listDays(){
         const days = [];
@@ -38,6 +39,17 @@ export default function SaveButton({loading, setLoading,segunda,terca,quarta,qui
         return days;
     }
 
+    function resetFields(){
+        setDomingo(false);
+        setSegunda(false);
+        setTerca(false);
+        setQuarta(false);
+        setQuinta(false);
+        setSexta(false);
+        setSabado(false);
+        setHabitName("");
+    }
+
     function createHabit(){
         const config ={
             headers:{
@@ -55,8 +67,16 @@ export default function SaveButton({loading, setLoading,segunda,terca,quarta,qui
         const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", newHabit, config);
         setLoading(true)
         request.then(() => {
+            resetFields();
             alert("Deu bom!");
+
+            const request = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config);
+            request.then(response => setHabList(response.data))
+
+            setCreationMode(false);
             setLoading(false);
+            
+
         })
         request.catch(() => alert("Deu ruim!"))
     }
