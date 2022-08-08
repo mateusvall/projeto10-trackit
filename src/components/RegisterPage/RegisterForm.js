@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { ThreeDots } from "react-loader-spinner";
 
@@ -13,6 +13,7 @@ export default function RegisterForm(){
     const [foto, setFoto] = useState("");
     const [loading, setLoading] = useState(false);
 
+    let navigate = useNavigate();
    
 
     function registerNewUser(event){
@@ -35,6 +36,7 @@ export default function RegisterForm(){
             setFoto("");
             setLoading(false);
             alert("Usuário criado com sucesso!")
+            navigate("/")
         });
 
         request.catch(() => {

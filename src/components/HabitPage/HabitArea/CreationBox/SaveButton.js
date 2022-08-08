@@ -12,7 +12,7 @@ export default function SaveButton({loading, setLoading,segunda,setSegunda,terca
     function listDays(){
         const days = [];
 
-       
+        
         if(segunda){
             days.push(1);
         }
@@ -34,6 +34,7 @@ export default function SaveButton({loading, setLoading,segunda,setSegunda,terca
         if(domingo){
             days.push(7);
         }
+       
        
 
         return days;

@@ -8,7 +8,7 @@ import SexButton from "./SexButtton"
 import SabButton from "./SabButton"
 
 export default function DaysButtons({days}){
-
+    
     const segundaOn = !!(days.filter((item) => item == 1).length);
     const tercaOn = !!(days.filter((item) => item == 2).length);
     const quartaOn = !!(days.filter((item) => item == 3).length);
@@ -16,6 +16,7 @@ export default function DaysButtons({days}){
     const sextaOn = !!(days.filter((item) => item == 5).length);
     const sabadoOn = !!(days.filter((item) => item == 6).length);
     const domingoOn = !!(days.filter((item) => item == 7).length);
+    
 
 
 

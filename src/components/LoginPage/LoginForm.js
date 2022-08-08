@@ -32,7 +32,7 @@ export default function LoginForm(){
             setToken(response.data.token);
             setImage(response.data.image);
             setLoading(false);
-            navigate("/habitos");
+            navigate("/hoje");
         });
 
         request.catch(() => {
