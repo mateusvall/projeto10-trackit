@@ -8,7 +8,8 @@ import HabitBox from "./HabitBox/HabitBox";
 export default function HabitArea({creationMode, setCreationMode}){
 
     const {habList, setHabList} = useContext(UserContext);
-    const {token, setToken} = useContext(UserContext)
+    const {token, setToken} = useContext(UserContext);
+    const {progress, setProgress} = useContext(UserContext);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -24,8 +25,7 @@ export default function HabitArea({creationMode, setCreationMode}){
 
     }, [])
 
-   
-
+    
     
 
     return(

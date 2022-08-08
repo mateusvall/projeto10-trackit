@@ -11,6 +11,7 @@ export default function HabitBox({name, id, days}){
     const {progress, setProgress} = useContext(UserContext);
     const [show, setShow] = useState(false);
     const {habList, setHabList} = useContext(UserContext);
+    const {checkList, setCheckList} = useContext(UserContext);
 
     function removeHabit(){
         const config ={
@@ -26,6 +27,22 @@ export default function HabitBox({name, id, days}){
 
             const request = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config);
             request.then(response => setHabList(response.data))
+
+            const req = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",config);
+            req.then((response) => {
+                setCheckList(response.data)
+                
+                const habitTotal = response.data.length;
+                const habitMarked = response.data.filter((item) => item.done === true).length;
+
+                const currentProgress = habitMarked/habitTotal;
+                if(currentProgress){
+                    setProgress(currentProgress);
+                }else{
+                    setProgress(0);
+                }
+                
+            })
 
 
         })

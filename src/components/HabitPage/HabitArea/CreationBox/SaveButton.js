@@ -7,6 +7,8 @@ import { ThreeDots } from "react-loader-spinner"
 export default function SaveButton({loading, setLoading,segunda,setSegunda,terca,setTerca,quarta,setQuarta,quinta,setQuinta,sexta,setSexta,sabado,setSabado,domingo,setDomingo,habitName,setHabitName, creationMode, setCreationMode}){
 
     const {token, setToken} = useContext(UserContext);
+    const {progress, setProgress} = useContext(UserContext);
+    const {checkList, setCheckList} = useContext(UserContext);
     const {habList, setHabList} = useContext(UserContext);
 
     function listDays(){
@@ -76,6 +78,17 @@ export default function SaveButton({loading, setLoading,segunda,setSegunda,terca
 
             setCreationMode(false);
             setLoading(false);
+
+            const req = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",config);
+                req.then((response) => {
+                    setCheckList(response.data)
+
+                    const habitTotal = response.data.length;
+                    const habitMarked = response.data.filter((item) => item.done === true).length;
+
+                    const currentProgress = habitMarked/habitTotal;
+                    setProgress(currentProgress);
+                })
             
 
         })

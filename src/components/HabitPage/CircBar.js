@@ -13,7 +13,7 @@ export default function CircBar(){
         <CircBarContainer>
              <CircularProgressbar
                     text={"Hoje"}
-                    value={progress}
+                    value={progress ? progress : 0}
                     maxValue={1}
                     background={true}
                     backgroundPadding={6}

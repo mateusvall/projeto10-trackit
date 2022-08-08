@@ -16,10 +16,11 @@ export default function App(){
     const [image, setImage] = useState("")
     const [habList, setHabList] = useState([])
     const [progress, setProgress] = useState(0);
+    const [checkList, setCheckList] = useState([]);
 
     return(
         <React.Fragment>
-        <UserContext.Provider value={{token,setToken, image, setImage, habList, setHabList, progress, setProgress}}>
+        <UserContext.Provider value={{token,setToken, image, setImage, habList, setHabList, progress, setProgress, checkList, setCheckList}}>
         <Reset/>
         <GlobalStyle/>
         <BrowserRouter>

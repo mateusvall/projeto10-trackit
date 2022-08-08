@@ -8,7 +8,7 @@ export default function CheckArea(){
 
     const {token, setToken} = useContext(UserContext)
     const {progress, setProgress} = useContext(UserContext);
-    const [checkList, setCheckList] = useState([]);
+    const {checkList, setCheckList} = useContext(UserContext);
 
     useEffect(() =>{
         const config ={
@@ -20,7 +20,6 @@ export default function CheckArea(){
         const request = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",config)
 
         request.then((response) => {
-            alert("Deu bom!")
             console.log(response.data)
             setCheckList(response.data)
 

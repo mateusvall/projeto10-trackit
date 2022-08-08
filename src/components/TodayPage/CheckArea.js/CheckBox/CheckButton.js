@@ -23,7 +23,6 @@ export default function CheckButton({id, checkList, setCheckList, done, selected
         if(!done){
             const request = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`,{},config);
             request.then(() => {
-                alert("Habito marcado!");
                 const req = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",config);
                 req.then((response) => {
                     setCheckList(response.data)
@@ -32,14 +31,17 @@ export default function CheckButton({id, checkList, setCheckList, done, selected
                     const habitMarked = response.data.filter((item) => item.done === true).length;
 
                     const currentProgress = habitMarked/habitTotal;
-                    setProgress(currentProgress);
+                    if(currentProgress){
+                        setProgress(currentProgress);
+                    }else{
+                        setProgress(0);
+                    }
                 })
             })
             request.catch(() => alert("Deu ruim!"))
         }else{
             const request = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`,{},config);
             request.then(() => {
-                alert("Habito desmarcado!")
                 const req = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",config);
                 req.then((response) => {
                     setCheckList(response.data)
