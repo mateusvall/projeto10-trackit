@@ -86,7 +86,7 @@ export default function SaveButton({loading, setLoading,segunda,setSegunda,terca
 
     return(
         <SaveButtonContainer onClick={() => createHabit()} loading={loading}>
-            {loading? <ThreeDots color="white"/> : "Salvar"}
+            {loading? <ThreeDots color="white" width={40} height={40}/> : "Salvar"}
         </SaveButtonContainer>
     )
 }

@@ -13,6 +13,7 @@ export default function TodayTitle(){
     const {progress, setProgress} = useContext(UserContext);
 
 
+
     return(
         <TodayTitleContainer progress={progress}>
             <h1>{now}</h1>

@@ -41,6 +41,6 @@ export default function CheckArea(){
 }
 
 const CheckAreaContainer = styled.div`
-    margin-bottom: 90px;
+    margin-bottom: 110px;
 
 `

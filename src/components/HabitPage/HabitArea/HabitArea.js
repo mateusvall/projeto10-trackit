@@ -38,7 +38,6 @@ export default function HabitArea({creationMode, setCreationMode}){
 
 const HabitAreaContainer = styled.div`
     width: 338px;
-    min-height: 100vh;
 
     h1{
         font-family: 'Lexend Deca';

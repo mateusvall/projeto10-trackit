@@ -8,6 +8,7 @@ import DaysButtons from "./DaysButtons./DaysButton"
 export default function HabitBox({name, id, days}){
 
     const {token, setToken} = useContext(UserContext);
+    const {progress, setProgress} = useContext(UserContext);
     const [show, setShow] = useState(false);
     const {habList, setHabList} = useContext(UserContext);
 
@@ -25,6 +26,8 @@ export default function HabitBox({name, id, days}){
 
             const request = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", config);
             request.then(response => setHabList(response.data))
+
+
         })
 
         setShow(false);
