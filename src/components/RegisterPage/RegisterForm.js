@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
+import { ThreeDots } from "react-loader-spinner";
 
 
 export default function RegisterForm(){
@@ -10,6 +11,7 @@ export default function RegisterForm(){
     const [senha, setSenha] = useState("");
     const [nome, setNome] = useState("");
     const [foto, setFoto] = useState("");
+    const [loading, setLoading] = useState(false);
 
    
 
@@ -25,30 +27,31 @@ export default function RegisterForm(){
         };
 
         const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", newUser);
-
+        setLoading(true);
         request.then(() => {
             setEmail("");
             setSenha("");
             setNome("");
             setFoto("");
-
+            setLoading(false);
             alert("Usuário criado com sucesso!")
         });
 
         request.catch(() => {
             alert("Whoops! Verifique se todos os campos foram preenchidos corretamente!")
+            setLoading(false);
         })
 
     }
 
     return(
-        <RegisterFormContainer>
+        <RegisterFormContainer loading={loading}>
             <form onSubmit={registerNewUser}>
-                <input required type="email" placeholder="email" value={email} onChange={e => setEmail(e.target.value)}></input>
-                <input required type="password" placeholder="senha" value={senha} onChange={e => setSenha(e.target.value)}></input>
-                <input required type="text" placeholder="nome" value={nome} onChange={e => setNome(e.target.value)}></input>
-                <input required type="url" placeholder="foto" value={foto} onChange={e => setFoto(e.target.value)}></input>
-                <button type="submit">Cadastrar</button>
+                <input disabled={loading} required type="email" placeholder="email" value={email} onChange={e => setEmail(e.target.value)}></input>
+                <input disabled={loading} required type="password" placeholder="senha" value={senha} onChange={e => setSenha(e.target.value)}></input>
+                <input disabled={loading} required type="text" placeholder="nome" value={nome} onChange={e => setNome(e.target.value)}></input>
+                <input disabled={loading} required type="url" placeholder="foto" value={foto} onChange={e => setFoto(e.target.value)}></input>
+                <button disabled={loading} type="submit">{loading? <ThreeDots color="white"/> : "Cadastrar"}</button>
             </form>
             <Link to="/">Já tem uma conta? Faça Login!</Link>
         </RegisterFormContainer>
@@ -79,6 +82,9 @@ const RegisterFormContainer = styled.div`
     }
 
     button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 100%;
         height: 45px;
         background: #52B6FF;
@@ -92,6 +98,7 @@ const RegisterFormContainer = styled.div`
         color: #FFFFFF;
         border: none;
         margin-bottom: 25px;
+        opacity: ${props => props.loading ? 0.7 : 1}
     }
 
     a{

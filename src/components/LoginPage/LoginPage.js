@@ -18,8 +18,4 @@ const LoginPageContainer = styled.div`
     justify-content: center;
     height: 100vh;
 
-    input ::placeholder{
-        font-size: 30px;
-    }
-
 `

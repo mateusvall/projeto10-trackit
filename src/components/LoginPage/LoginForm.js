@@ -3,13 +3,16 @@ import { useContext, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import UserContext from "../../contexts/UserContext"
+import { ThreeDots } from "react-loader-spinner";
 
 export default function LoginForm(){
 
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+    const [loading, setLoading] = useState(false);
     const {token, setToken} = useContext(UserContext);
     const {image, setImage} = useContext(UserContext);
+
 
     let navigate = useNavigate();
 
@@ -24,15 +27,17 @@ export default function LoginForm(){
         };
 
         const request = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", userAccount);
-
+        setLoading(true);
         request.then(response => {
             setToken(response.data.token);
             setImage(response.data.image);
+            setLoading(false);
             navigate("/habitos");
         });
 
         request.catch(() => {
             alert("Whoops! Algo deu errado. Verifique se o login e a senha estão corretos.")
+            setLoading(false);
         });
 
     }
@@ -40,11 +45,11 @@ export default function LoginForm(){
 
 
     return(
-        <LoginFormContainer>
+        <LoginFormContainer loading={loading}>
             <form onSubmit={loginRequest}>
-                <input type="email" placeholder="email" value={email} onChange={e => setEmail(e.target.value)}></input>
-                <input type="password" placeholder="senha" value={senha} onChange={e => setSenha(e.target.value)}></input>
-                <button type="submit">Entrar</button>
+                <input disabled={loading} type="email" placeholder="email" value={email} onChange={e => setEmail(e.target.value)}></input>
+                <input disabled={loading} type="password" placeholder="senha" value={senha} onChange={e => setSenha(e.target.value)}></input>
+                <button disabled={loading} type="submit">{loading? <ThreeDots color="white"/> : "Entrar"}</button>
             </form>
             <Link to="/registro">Não tem uma conta? Cadastre-se!</Link>
         </LoginFormContainer>
@@ -81,6 +86,9 @@ const LoginFormContainer = styled.div`
     }
 
     button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 100%;
         height: 45px;
         background: #52B6FF;
@@ -94,6 +102,7 @@ const LoginFormContainer = styled.div`
         color: #FFFFFF;
         border: none;
         margin-bottom: 25px;
+        opacity:${props => props.loading? 0.7:1};
     }
 
     a{

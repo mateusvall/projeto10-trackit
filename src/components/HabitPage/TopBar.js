@@ -16,6 +16,7 @@ export default function TopBar(){
 }
 
 const TopBarContainer = styled.div`
+    position: fixed;
     display: flex;
     align-items: center;
     justify-content: space-between;
