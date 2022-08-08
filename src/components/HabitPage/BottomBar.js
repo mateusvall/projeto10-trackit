@@ -1,14 +1,21 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components"
-import circ from "../../images/circ.png"
-import { CircularProgressbar } from "react-circular-progressbar"
+import { buildStyles, CircularProgressbar } from "react-circular-progressbar"
+import "react-circular-progressbar/dist/styles.css"
+import { useContext } from "react"
+import UserContext from "../../contexts/UserContext"
+import CircBar from "./CircBar"
 
 export default function BottomBar(){
+
+    const {progress, setProgress} = useContext(UserContext)
+
+    console.log(progress)
 
     return(
         <BottomBarContainer>
             <Link to="/habitos">Hábitos</Link>
-            <Link to="/hoje">Hoje</Link>
+            <Link to="/hoje"><CircBar/></Link>
             <Link to="/historico">Histórico</Link>
 
         </BottomBarContainer>

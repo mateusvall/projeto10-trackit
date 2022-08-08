@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import styled from "styled-components"
 import UserContext from "../../../../contexts/UserContext"
 import remove from "../../../../images/remove.png"
@@ -8,6 +8,7 @@ import DaysButtons from "./DaysButtons./DaysButton"
 export default function HabitBox({name, id, days}){
 
     const {token, setToken} = useContext(UserContext);
+    const [show, setShow] = useState(false);
     const {habList, setHabList} = useContext(UserContext);
 
     function removeHabit(){
@@ -26,15 +27,20 @@ export default function HabitBox({name, id, days}){
             request.then(response => setHabList(response.data))
         })
 
+        setShow(false);
+
     }
 
 
 
     return(
-        <HabitBoxContainer>
+        <HabitBoxContainer show={show}>
             <h1>{name}</h1>
-            <img src={remove} onClick={() => removeHabit()}/>
+            <img src={remove} onClick={() => setShow(true)}/>
             <DaysButtons days={days}/>
+            <h2>Remover?</h2>
+            <h3 onClick={() => removeHabit()}>Sim</h3>
+            <h4 onClick={() => setShow(false)}>Não</h4>
         </HabitBoxContainer>
     )
 }
@@ -64,5 +70,39 @@ const HabitBoxContainer = styled.div`
         position:absolute;
         top: 11px;
         right: 10px;
+    }
+
+    h2{
+        font-family: 'Lexend Deca';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 13px;
+        position: absolute;
+        right: 5px;
+        bottom: 40px;
+        display:${props => props.show ? "inherit":"none"}
+    }
+
+    h3{
+        font-family: 'Lexend Deca';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        position: absolute;
+        color: red;
+        bottom: 20px;
+        right: 5px;
+        display:${props => props.show ? "inherit":"none"}
+    }
+
+    h4{
+        font-family: 'Lexend Deca';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        position: absolute;
+        bottom: 20px;
+        right: 40px;
+        display:${props => props.show ? "inherit":"none"}
     }
 `
